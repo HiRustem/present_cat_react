@@ -1,45 +1,57 @@
-import { motion, Transition } from "framer-motion";
-import useSound from "use-sound";
-
 import Box from "./ui/Box/Box";
 import Cap from "./ui/Cap/Cap";
 
-import boxMeow from "@/assets/audio/box_meow.mp3";
+import boxMeowSrc from "@/assets/audio/box_meow.mp3";
+
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./BoxScene.module.scss";
 
-const shakeAnimation = {
-  x: [0, 5, 0, -5, 0, 5, 0, -5, 0, 5, 0, -5, 0],
-  y: [0, 5, 0, -5, 0, 5, 0, -5, 0, 5, 0, -5, 0],
-  rotate: [0, 5, 0, -5, 0, 5, 0, -5, 0, 5, 0, -5, 0],
-};
+const boxWrapperKeyframes = [
+  { transform: "translate(0, 0) rotate(0deg)" },
+  { transform: "translate(5px, 5px) rotate(5deg)" },
+  { transform: "translate(0, 0) rotate(0deg)" },
+  { transform: "translate(-5px, 5px) rotate(-5deg)" },
+  { transform: "translate(0, 0) rotate(0deg)" },
+];
 
-const shakeTransition: Transition = {
-  duration: 0.6,
-  repeatDelay: 3,
-  repeat: Infinity,
-  ease: "easeOut",
-  times: [
-    0, 0.083, 0.166, 0.25, 0.333, 0.416, 0.5, 0.583, 0.666, 0.75, 0.833, 0.916,
-    1,
-  ],
+const boxWrapperTiming = {
+  duration: 200,
+  iterations: 3,
 };
 
 const BoxScene = () => {
-  const [play] = useSound(boxMeow);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const boxMeowRef = useRef<HTMLAudioElement>(null);
+  const boxWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      if (boxMeowRef.current && boxWrapperRef.current) {
+        boxWrapperRef.current.animate(boxWrapperKeyframes, boxWrapperTiming);
+        boxMeowRef.current?.play();
+      }
+    }, 5000);
+
+    return () => clearInterval(timerId);
+  }, []);
 
   return (
-    <motion.div
+    <div
+      ref={boxWrapperRef}
       className={styles.wrapper}
-      animate={shakeAnimation}
-      transition={shakeTransition}
-      onAnimationStart={() => {
-        play();
+      onMouseEnter={() => {
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
       }}
     >
+      <Cap isHovered={isHovered} />
       <Box />
-      <Cap />
-    </motion.div>
+
+      <audio ref={boxMeowRef} src={boxMeowSrc}></audio>
+    </div>
   );
 };
 

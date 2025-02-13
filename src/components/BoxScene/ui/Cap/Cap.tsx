@@ -2,9 +2,13 @@ import clsx from "clsx";
 
 import styles from "./Cap.module.scss";
 
-const Cap = () => {
+interface ICap {
+  isHovered: boolean;
+}
+
+const Cap = ({ isHovered }: ICap) => {
   return (
-    <div className={styles.scene}>
+    <div className={clsx(styles.scene, { [styles.hovered]: isHovered })}>
       <div className={styles.cap}>
         <div className={clsx(styles.content, styles.front)}></div>
         <div className={clsx(styles.content, styles.back)}></div>

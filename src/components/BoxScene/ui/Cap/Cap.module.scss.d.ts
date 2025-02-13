@@ -1,5 +1,6 @@
 declare const classNames: {
   readonly scene: "scene";
+  readonly hovered: "hovered";
   readonly cap: "cap";
   readonly content: "content";
   readonly front: "front";
