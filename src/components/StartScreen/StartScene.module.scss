@@ -4,6 +4,16 @@
   margin: auto;
 
   .button {
-    
+    padding: 15px 50px;
+
+    background-color: var(--box_pink);
+    border-radius: 20px;
+
+    color: var(--white);
+    font-weight: 600;
+
+    &:hover {
+      background-color: var(--box_dark_pink);
+    }
   }
 }
