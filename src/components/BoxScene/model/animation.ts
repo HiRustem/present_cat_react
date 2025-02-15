@@ -30,3 +30,39 @@ export const capOpenTiming = {
   easing: "ease-in",
   fill: "forwards" as FillMode,
 };
+
+export const catAppearenceKeyframes = [
+  { transform: "translateY(100px) rotateY(45deg)", opacity: 0 },
+  { transform: "translateY(75px) rotateY(45deg)", opacity: 0 },
+  { transform: "translateY(50px) rotateY(45deg)", opacity: 0 },
+  { transform: "translateY(25px) rotateY(45deg)", opacity: 0.75 },
+  { transform: "translateY(0px) rotateY(45deg)", opacity: 1, height: "200px" },
+];
+
+export const catAppearenceTiming = {
+  duration: 1000,
+  easing: "ease-in",
+  fill: "forwards" as FillMode,
+};
+
+export const boxHideKeyframes = [
+  { transform: "translateY(0px)" },
+  { transform: "translateY(20px)" },
+  { transform: "translateY(40px)" },
+  { transform: "translateY(60px)" },
+  { transform: "translateY(80px)" },
+  { transform: "translateY(100px)" },
+  { transform: "translateY(120px)" },
+  { transform: "translateY(140px)" },
+  { transform: "translateY(160px)" },
+  { transform: "translateY(180px)" },
+  { transform: "translateY(200px)" },
+  { transform: "translateY(220px)" },
+  { transform: "translateY(240px)" },
+];
+
+export const boxHideTiming = {
+  duration: 2000,
+  easing: "ease-in",
+  fill: "forwards" as FillMode,
+};

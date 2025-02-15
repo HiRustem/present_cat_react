@@ -1,11 +1,10 @@
 .scene {
-  position: relative;
   top: 0px;
   left: -7px;
+  
   width: 200px;
   height: 0;
-  margin: auto;
-  transform-style: preserve-3d;
+
   transform: rotateX(-20deg) rotateY(-45deg);
   transition: top .2s ease-in;
 

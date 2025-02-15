@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 import styles from "./Cap.module.scss";
 import { forwardRef } from "react";
+import Scene from "@/components/Scene/Scene";
 
 interface ICap {
   isHovered: boolean;
@@ -9,7 +10,7 @@ interface ICap {
 
 const Cap = forwardRef<HTMLDivElement, ICap>(({ isHovered }, ref) => {
   return (
-    <div
+    <Scene
       ref={ref}
       className={clsx(styles.scene, { [styles.hovered]: isHovered })}
     >
@@ -20,7 +21,7 @@ const Cap = forwardRef<HTMLDivElement, ICap>(({ isHovered }, ref) => {
         <div className={clsx(styles.content, styles.right)}></div>
         <div className={clsx(styles.content, styles.top)}></div>
       </div>
-    </div>
+    </Scene>
   );
 });
 

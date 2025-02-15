@@ -4,11 +4,13 @@ import { immer } from "zustand/middleware/immer";
 type IUseAppStoreState = {
   isStarted: boolean;
   isShowBox: boolean;
+  isShowMainScene: boolean;
 };
 
 type IUseAppStoreAction = {
   startApp: () => void;
   showBox: () => void;
+  showMainScene: () => void;
   setValue: <K extends keyof IUseAppStoreState>(
     fieldName: K,
     fieldValue: IUseAppStoreState[K]
@@ -18,10 +20,14 @@ type IUseAppStoreAction = {
 const appStoreDefaultState: IUseAppStoreState = {
   isStarted: false,
   isShowBox: false,
+  isShowMainScene: false,
 };
 
 const useAppStore = create<IUseAppStoreState & IUseAppStoreAction>()(
   immer((set) => ({
+    showMainScene: () => {
+      set({ isShowMainScene: true, isShowBox: false });
+    },
     startApp: () => {
       set({ isStarted: true });
     },

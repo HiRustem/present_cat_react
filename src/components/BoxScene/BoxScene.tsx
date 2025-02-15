@@ -3,15 +3,16 @@ import Cap from "./ui/Cap/Cap";
 
 import boxMeowSrc from "@/assets/audio/box_meow.mp3";
 
-import { RefObject, useEffect, useRef, useState } from "react";
-
-import styles from "./BoxScene.module.scss";
+import { useEffect, useRef, useState } from "react";
 import {
   boxWrapperKeyframes,
   boxWrapperTiming,
   capOpenKeyframes,
   capOpenTiming,
 } from "./model/animation";
+
+import { LottieRefCurrentProps } from "lottie-react";
+import styles from "./BoxScene.module.scss";
 
 const BoxScene = () => {
   const [isAnimationDisabled, setIsAnimationDisabled] =
@@ -20,9 +21,12 @@ const BoxScene = () => {
   const capRef = useRef<HTMLDivElement>(null);
   const boxMeowRef = useRef<HTMLAudioElement>(null);
   const boxWrapperRef = useRef<HTMLDivElement>(null);
+  const catShowAnimationRef = useRef<LottieRefCurrentProps | null>(null);
 
   const boxOnClick = () => {
     if (isAnimationDisabled) return;
+
+    setIsAnimationDisabled(true);
 
     const capAnimation = capRef.current?.animate(
       capOpenKeyframes,
@@ -31,22 +35,22 @@ const BoxScene = () => {
 
     if (capAnimation) {
       capAnimation.onfinish = (event) => {
-        if (capRef.current !== null) capRef.current.style.opacity = "0";
+        if (capRef.current) capRef.current.style.opacity = "0";
 
-        setIsAnimationDisabled(true);
+        catShowAnimationRef?.current?.play();
       };
     }
   };
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      if (isAnimationDisabled) return;
-
       if (boxMeowRef.current && boxWrapperRef.current) {
         boxWrapperRef.current.animate(boxWrapperKeyframes, boxWrapperTiming);
-        // boxMeowRef.current?.play();
+        boxMeowRef.current?.play();
       }
     }, 5000);
+
+    if (isAnimationDisabled) clearInterval(timerId);
 
     return () => clearInterval(timerId);
   }, [isAnimationDisabled]);
@@ -64,7 +68,7 @@ const BoxScene = () => {
       onClick={boxOnClick}
     >
       <Cap ref={capRef} isHovered={isHovered} />
-      <Box />
+      <Box catShowAnimationRef={catShowAnimationRef} />
 
       <audio ref={boxMeowRef} src={boxMeowSrc}></audio>
     </div>

@@ -3,6 +3,7 @@ import { useShallow } from "zustand/shallow";
 import useAppStore from "@/pages/MainPage/model/store";
 
 import styles from "./StartScene.module.scss";
+import Scene from "../Scene/Scene";
 
 const StartScene = () => {
   const { startApp, showBox } = useAppStore(
@@ -18,11 +19,11 @@ const StartScene = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <Scene>
       <button className={styles.button} onClick={startHandler}>
         Начать
       </button>
-    </div>
+    </Scene>
   );
 };
 
