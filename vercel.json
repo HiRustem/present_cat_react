@@ -5,9 +5,15 @@
       "destination": "/"
     }
   ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
   "builds": [
     {
-      "src": "src/main.tsx",
+      "src": "src/index.tsx",
       "use": "@vercel/node"
     }
   ]

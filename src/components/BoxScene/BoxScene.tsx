@@ -34,7 +34,7 @@ const BoxScene = () => {
     );
 
     if (capAnimation) {
-      capAnimation.onfinish = (event) => {
+      capAnimation.onfinish = () => {
         if (capRef.current) capRef.current.style.opacity = "0";
 
         catShowAnimationRef?.current?.play();

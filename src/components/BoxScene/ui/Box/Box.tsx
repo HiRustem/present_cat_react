@@ -34,7 +34,7 @@ const Box = ({ catShowAnimationRef }: IBox) => {
 
     if (!catAnimation) return;
 
-    catAnimation.onfinish = (event) => {
+    catAnimation.onfinish = () => {
       const boxAnimation = boxRef.current?.animate(
         boxHideKeyframes,
         boxHideTiming
@@ -42,7 +42,7 @@ const Box = ({ catShowAnimationRef }: IBox) => {
 
       if (!boxAnimation) return;
 
-      boxAnimation.onfinish = (event) => {
+      boxAnimation.onfinish = () => {
         if (boxRef.current) boxRef.current.style.opacity = "0";
         showMainScene();
       };
