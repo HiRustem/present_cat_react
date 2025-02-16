@@ -4,7 +4,6 @@ import Needs from "../Needs/Needs";
 import useCatStore from "../Cat/model/store";
 import { useShallow } from "zustand/shallow";
 import styles from "./MainScene.module.scss";
-import { useState } from "react";
 
 const MainScene = () => {
   const { currentConditionAnimation, setHappy, setCurrentCondition } =
