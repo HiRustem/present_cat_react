@@ -7,7 +7,7 @@ type IUseAppStoreState = {
   isShowMainScene: boolean;
 };
 
-type IUseAppStoreAction = {
+type IUseAppStoreActions = {
   startApp: () => void;
   showBox: () => void;
   showMainScene: () => void;
@@ -23,7 +23,7 @@ const appStoreDefaultState: IUseAppStoreState = {
   isShowMainScene: false,
 };
 
-const useAppStore = create<IUseAppStoreState & IUseAppStoreAction>()(
+const useAppStore = create<IUseAppStoreState & IUseAppStoreActions>()(
   immer((set) => ({
     showMainScene: () => {
       set({ isShowMainScene: true, isShowBox: false });
