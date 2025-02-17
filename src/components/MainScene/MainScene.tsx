@@ -4,6 +4,7 @@ import Needs from "../Needs/Needs";
 import useCatStore from "../Cat/model/store";
 import { useShallow } from "zustand/shallow";
 import styles from "./MainScene.module.scss";
+import { useGesture } from "react-use-gesture";
 
 const MainScene = () => {
   const { currentConditionAnimation, setHappy, setCurrentCondition } =
@@ -15,29 +16,27 @@ const MainScene = () => {
       }))
     );
 
+  const bind = useGesture({
+    onPointerDown: () => {
+      setHappy();
+    },
+    onPointerUp: () => {
+      setCurrentCondition();
+    },
+    onPointerLeave: () => {
+      setCurrentCondition();
+    },
+  });
+
   return (
     <Scene className={styles.scene}>
-      <Lottie
-        className={styles.mainAnimation}
-        animationData={currentConditionAnimation}
-        onMouseDown={() => {
-          setHappy();
-        }}
-        onMouseUp={() => {
-          setCurrentCondition();
-        }}
-        onTouchStart={() => {
-          setHappy();
-        }}
-        onTouchMove={() => {
-          setHappy();
-        }}
-        onTouchEnd={() => {
-          setCurrentCondition();
-        }}
-        autoplay={true}
-        loop={true}
-      />
+      <div {...bind()} className={styles.animationWrapper}>
+        <Lottie
+          className={styles.mainAnimation}
+          animationData={currentConditionAnimation}
+          loop={true}
+        />
+      </div>
 
       <Needs className={styles.needs} />
     </Scene>

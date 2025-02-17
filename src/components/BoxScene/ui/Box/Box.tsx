@@ -16,7 +16,7 @@ import catMainAnimation from "@/assets/cat_animations/cat_main_animation.json";
 import useAppStore from "@/pages/MainPage/model/store";
 import Scene from "@/components/Scene/Scene";
 
-const Box = forwardRef<LottieRefCurrentProps | null>(({}, ref) => {
+const Box = forwardRef<LottieRefCurrentProps | null>((_, ref) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const catAnimationWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -58,7 +58,7 @@ const Box = forwardRef<LottieRefCurrentProps | null>(({}, ref) => {
       </div>
 
       <Lottie
-        lottieRef={ref}
+        lottieRef={ref as LottieRef}
         className={styles.appearAnimation}
         animationData={catShowAndHideAnimation}
         autoplay={false}
@@ -68,7 +68,6 @@ const Box = forwardRef<LottieRefCurrentProps | null>(({}, ref) => {
 
       <div ref={catAnimationWrapperRef} className={styles.animationWrapper}>
         <Lottie
-          ref={catAnimationWrapperRef}
           className={styles.mainAnimation}
           animationData={catMainAnimation}
           autoplay={false}

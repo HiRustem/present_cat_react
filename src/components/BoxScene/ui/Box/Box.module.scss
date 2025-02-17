@@ -29,31 +29,31 @@
 
       z-index: 10;
     }
-    
+
     .back {
       background-color: var(--box_dark_pink);
-      
+
       transform: translateZ(-100px) rotateY(180deg);
 
       z-index: 3;
     }
-    
+
     .left {
       background-color: var(--box_dark_pink);
-      
+
       transform: rotateY(-90deg) translateZ(100px);
 
       z-index: 3;
     }
-    
+
     .right {
       background-color: var(--box_pink);
 
-      transform: rotateY(90deg)  translateZ(100px);
+      transform: rotateY(90deg) translateZ(100px);
 
       z-index: 10;
     }
-    
+
     .bottom {
       background-color: var(--box_dark_pink);
 
@@ -77,13 +77,13 @@
   .animationWrapper {
     position: absolute;
     transform-style: preserve-3d;
-  
+
     top: 0;
     left: 0;
 
     width: 200px;
     height: 200px;
-  
+
     opacity: 0;
 
     z-index: 5;
@@ -94,7 +94,7 @@
 
       object-fit: contain;
 
-      transform: scaleY(1.065)
+      transform: scaleY(1.065);
     }
   }
 }
