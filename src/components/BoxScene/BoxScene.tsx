@@ -11,7 +11,7 @@ import {
   capOpenTiming,
 } from "./model/animation";
 
-import { LottieRefCurrentProps } from "lottie-react";
+import { LottieRefCurrentProps, useLottie } from "lottie-react";
 import styles from "./BoxScene.module.scss";
 
 const BoxScene = () => {
@@ -68,7 +68,7 @@ const BoxScene = () => {
       onClick={boxOnClick}
     >
       <Cap ref={capRef} isHovered={isHovered} />
-      <Box catShowAnimationRef={catShowAnimationRef} />
+      <Box ref={catShowAnimationRef} />
 
       <audio ref={boxMeowRef} src={boxMeowSrc}></audio>
     </div>

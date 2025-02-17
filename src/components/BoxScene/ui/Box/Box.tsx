@@ -1,11 +1,10 @@
 import clsx from "clsx";
 
 import styles from "./Box.module.scss";
-import Scene from "@/components/Scene/Scene";
-import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import Lottie, { LottieRef, LottieRefCurrentProps } from "lottie-react";
 
 import catShowAndHideAnimation from "@/assets/cat_animations/cat_show_and_hide_animation.json";
-import { MutableRefObject, useRef } from "react";
+import { forwardRef, useRef } from "react";
 import {
   boxHideKeyframes,
   boxHideTiming,
@@ -15,12 +14,9 @@ import {
 
 import catMainAnimation from "@/assets/cat_animations/cat_main_animation.json";
 import useAppStore from "@/pages/MainPage/model/store";
+import Scene from "@/components/Scene/Scene";
 
-interface IBox {
-  catShowAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
-}
-
-const Box = ({ catShowAnimationRef }: IBox) => {
+const Box = forwardRef<LottieRefCurrentProps | null>(({}, ref) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const catAnimationWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,8 +39,10 @@ const Box = ({ catShowAnimationRef }: IBox) => {
       if (!boxAnimation) return;
 
       boxAnimation.onfinish = () => {
-        if (boxRef.current) boxRef.current.style.opacity = "0";
-        showMainScene();
+        if (boxRef.current) {
+          boxRef.current.style.opacity = "0";
+          showMainScene();
+        }
       };
     };
   };
@@ -60,7 +58,7 @@ const Box = ({ catShowAnimationRef }: IBox) => {
       </div>
 
       <Lottie
-        lottieRef={catShowAnimationRef}
+        lottieRef={ref}
         className={styles.appearAnimation}
         animationData={catShowAndHideAnimation}
         autoplay={false}
@@ -78,6 +76,6 @@ const Box = ({ catShowAnimationRef }: IBox) => {
       </div>
     </Scene>
   );
-};
+});
 
 export default Box;
