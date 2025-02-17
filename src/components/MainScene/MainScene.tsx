@@ -26,9 +26,15 @@ const MainScene = () => {
         onMouseUp={() => {
           setCurrentCondition();
         }}
-        onTouchStart={setHappy}
-        onTouchMove={setHappy}
-        onTouchEnd={setCurrentCondition}
+        onTouchStart={() => {
+          setHappy();
+        }}
+        onTouchMove={() => {
+          setHappy();
+        }}
+        onTouchEnd={() => {
+          setCurrentCondition();
+        }}
         autoplay={true}
         loop={true}
       />
