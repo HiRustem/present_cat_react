@@ -2,4 +2,105 @@
   position: relative;
 
   margin: auto;
+
+  .scene {
+    width: 200px;
+    height: 200px;
+
+    transform: rotateX(-20deg) rotateY(-45deg);
+
+    z-index: 0;
+
+    .box {
+      position: absolute;
+      transform-style: preserve-3d;
+
+      width: 200px;
+      height: 200px;
+
+      .content {
+        position: absolute;
+
+        width: 200px;
+        height: 200px;
+
+        border: 2px solid var(--box_border);
+      }
+
+      .front {
+        background-color: var(--box_pink);
+
+        transform: translateZ(100px);
+
+        z-index: 10;
+      }
+
+      .back {
+        background-color: var(--box_dark_pink);
+
+        transform: translateZ(-100px) rotateY(180deg);
+
+        z-index: 3;
+      }
+
+      .left {
+        background-color: var(--box_dark_pink);
+
+        transform: rotateY(-90deg) translateZ(100px);
+
+        z-index: 3;
+      }
+
+      .right {
+        background-color: var(--box_pink);
+
+        transform: rotateY(90deg) translateZ(100px);
+
+        z-index: 10;
+      }
+
+      .bottom {
+        background-color: var(--box_dark_pink);
+
+        transform: rotateX(-90deg) translateZ(100px);
+      }
+    }
+
+    .appearAnimation {
+      position: absolute;
+      transform-style: preserve-3d;
+
+      top: -75px;
+      left: 0;
+
+      width: 200px;
+      height: 200px;
+
+      transform: rotateY(45deg);
+    }
+
+    .animationWrapper {
+      position: absolute;
+      transform-style: preserve-3d;
+
+      top: 0;
+      left: 0;
+
+      width: 200px;
+      height: 200px;
+
+      opacity: 0;
+
+      z-index: 5;
+
+      .mainAnimation {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+
+        transform: scaleY(1.065);
+      }
+    }
+  }
 }
