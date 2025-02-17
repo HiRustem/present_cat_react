@@ -5,25 +5,36 @@ import useCatStore from "../Cat/model/store";
 import { useShallow } from "zustand/shallow";
 import styles from "./MainScene.module.scss";
 import { useGesture } from "react-use-gesture";
+import Toilet from "../Toilet/Toilet";
 
 const MainScene = () => {
-  const { currentConditionAnimation, setHappy, setCurrentCondition } =
-    useCatStore(
-      useShallow((state) => ({
-        currentConditionAnimation: state.currentConditionAnimation,
-        setHappy: state.setHappy,
-        setCurrentCondition: state.setCurrentCondition,
-      }))
-    );
+  const {
+    currentConditionAnimation,
+    setHappy,
+    setCurrentCondition,
+    incrimentHappiness,
+    setNormal,
+  } = useCatStore(
+    useShallow((state) => ({
+      currentConditionAnimation: state.currentConditionAnimation,
+      setHappy: state.setHappy,
+      setCurrentCondition: state.setCurrentCondition,
+      incrimentHappiness: state.incrimentHappiness,
+      setNormal: state.setNormal,
+    }))
+  );
 
   const bind = useGesture({
     onPointerDown: () => {
       setHappy();
+      incrimentHappiness();
     },
     onPointerUp: () => {
+      setNormal();
       setCurrentCondition();
     },
     onPointerLeave: () => {
+      setNormal();
       setCurrentCondition();
     },
   });
@@ -39,6 +50,8 @@ const MainScene = () => {
       </div>
 
       <Needs className={styles.needs} />
+
+      <Toilet className={styles.toilet} />
     </Scene>
   );
 };

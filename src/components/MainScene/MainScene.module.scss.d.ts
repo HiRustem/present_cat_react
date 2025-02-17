@@ -3,5 +3,6 @@ declare const classNames: {
   readonly animationWrapper: "animationWrapper";
   readonly mainAnimation: "mainAnimation";
   readonly needs: "needs";
+  readonly toilet: "toilet";
 };
 export = classNames;

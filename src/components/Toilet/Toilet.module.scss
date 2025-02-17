@@ -1,0 +1,68 @@
+.wrapper {  
+  .scene {
+    width: 200px;
+    height: 200px;
+  
+    transform: rotateX(-30deg) rotateY(-45deg) translateX(-50%);
+  
+    z-index: 20;
+  
+    .toilet {
+      position: absolute;
+      transform-style: preserve-3d;
+  
+      width: 200px;
+      height: 200px;
+  
+      .content {
+        position: absolute;
+  
+        width: 200px;
+        height: 30px;
+  
+        border: 2px solid var(--box_border);
+      }
+  
+      .front {
+        background-color: var(--toilet_color);
+  
+        transform: translateZ(100px);
+  
+        z-index: 20;
+      }
+  
+      .back {
+        background-color: var(--toilet_dark_color);
+  
+        transform: translateZ(-100px) rotateY(180deg);
+  
+        z-index: 3;
+      }
+  
+      .left {
+        background-color: var(--toilet_dark_color);
+  
+        transform: rotateY(-90deg) translateZ(100px);
+  
+        z-index: 3;
+      }
+  
+      .right {
+        background-color: var(--toilet_color);
+  
+        transform: rotateY(90deg) translateZ(100px);
+  
+        z-index: 20;
+      }
+  
+      .bottom {
+        width: 99%;
+        height: 99%;
+
+        background-color: var(--brown);
+  
+        transform: rotateX(-90deg) translateZ(-80px);
+      }
+    }
+  }
+}
