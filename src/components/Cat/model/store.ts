@@ -22,8 +22,8 @@ type IUseCatStoreActions = {
   setNormal: () => void;
   setSad: () => void;
   setCurrentCondition: () => void;
-  feed: () => void;
-  pee: () => void;
+  feed: (onComplete: () => void) => void;
+  pee: (onComplete: () => void) => void;
   incrimentHappiness: () => void;
 };
 
@@ -38,16 +38,24 @@ const catStoreDefaultState: IUseCatStoreState = {
 
 const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
   immer((set, get) => ({
-    feed: () => {
-      set({ currentAction: "feeding" });
+    feed: (onComplete) => {
+      set({
+        currentAction: "feeding",
+        condition: "good",
+        currentConditionAnimation: catGoodAnimation,
+      });
 
       const timerId = setInterval(() => {
         const hungryPoints = get().hungryPoints;
 
         if (hungryPoints === 100) {
-          set({ currentAction: "sitting" });
+          const setCurrentCondition = get().setCurrentCondition;
+
+          setCurrentCondition();
 
           clearInterval(timerId);
+
+          onComplete();
         }
 
         if (hungryPoints < 100) {
@@ -57,7 +65,7 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
         }
       }, 1000);
     },
-    pee: () => {
+    pee: (onComplete) => {
       set({
         currentAction: "peeing",
         condition: "good",
@@ -73,6 +81,8 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
           setCurrentCondition();
 
           clearInterval(timerId);
+
+          onComplete();
         }
 
         if (peePoints < 100) {

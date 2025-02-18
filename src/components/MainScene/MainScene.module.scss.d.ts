@@ -4,5 +4,6 @@ declare const classNames: {
   readonly mainAnimation: "mainAnimation";
   readonly needs: "needs";
   readonly toilet: "toilet";
+  readonly fish: "fish";
 };
 export = classNames;

@@ -6,6 +6,9 @@ import { useShallow } from "zustand/shallow";
 import styles from "./MainScene.module.scss";
 import { useGesture } from "react-use-gesture";
 import Toilet from "../Toilet/Toilet";
+import { useRef } from "react";
+
+import FishImageSvg from "@/assets/images/fish.svg?react";
 
 const MainScene = () => {
   const {
@@ -23,6 +26,9 @@ const MainScene = () => {
       setNormal: state.setNormal,
     }))
   );
+
+  const toiletRef = useRef<HTMLDivElement>(null);
+  const fishRef = useRef<HTMLDivElement>(null);
 
   const bind = useGesture({
     onPointerDown: () => {
@@ -49,9 +55,13 @@ const MainScene = () => {
         />
       </div>
 
-      <Needs className={styles.needs} />
+      <Needs toiletRef={toiletRef} fishRef={fishRef} className={styles.needs} />
 
-      <Toilet className={styles.toilet} />
+      <div ref={fishRef} className={styles.fish}>
+        <FishImageSvg />
+      </div>
+
+      <Toilet ref={toiletRef} className={styles.toilet} />
     </Scene>
   );
 };
