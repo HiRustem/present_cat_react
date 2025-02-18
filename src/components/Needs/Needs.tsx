@@ -52,7 +52,7 @@ const Needs = ({ className }: INeeds) => {
         },
       },
     ];
-  }, [hungryPoints, happinessPoints, peePoints, currentAction]);
+  }, [hungryPoints, happinessPoints, peePoints, currentAction, feed, pee]);
 
   return (
     <div className={clsx(styles.needs, className)}>
