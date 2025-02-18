@@ -49,6 +49,8 @@ const MainScene = () => {
         />
       </div>
 
+      <div>asdasdasasdas</div>
+
       <Needs className={styles.needs} />
 
       <Toilet className={styles.toilet} />
