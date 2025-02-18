@@ -70,6 +70,8 @@ const BoxScene = () => {
       <Cap ref={capRef} isHovered={isHovered} />
       <Box ref={catShowAnimationRef} />
 
+      <div>asdadasdadas</div>
+
       <audio ref={boxMeowRef} src={boxMeowSrc}></audio>
     </div>
   );
