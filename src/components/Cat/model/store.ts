@@ -6,6 +6,9 @@ import catMainAnimation from "@/assets/cat_animations/cat_main_animation.json";
 import catHappyAnimation from "@/assets/cat_animations/cat_happy_animation.json";
 import catSadAnimation from "@/assets/cat_animations/cat_sad_emotion_animation.json";
 import catGoodAnimation from "@/assets/cat_animations/cat_good_emotion_animation.json";
+import { ReactNode } from "react";
+import { loveEmotion } from "./emotions";
+import { setLastPoints } from "@/pages/MainPage/lib/local-storage";
 
 type IUseCatStoreState = {
   hungryPoints: number;
@@ -14,6 +17,7 @@ type IUseCatStoreState = {
   condition: CatConditions;
   currentConditionAnimation: unknown;
   currentAction: CatAction;
+  catEmotion: ReactNode | null;
 };
 
 type IUseCatStoreActions = {
@@ -25,15 +29,20 @@ type IUseCatStoreActions = {
   feed: (onComplete: () => void) => void;
   pee: (onComplete: () => void) => void;
   incrimentHappiness: () => void;
+  setValue: <K extends keyof IUseCatStoreState>(
+    fieldName: K,
+    fieldValue: IUseCatStoreState[K]
+  ) => void;
 };
 
 const catStoreDefaultState: IUseCatStoreState = {
-  hungryPoints: 50,
-  happinessPoints: 50,
-  peePoints: 50,
+  hungryPoints: 0,
+  happinessPoints: 0,
+  peePoints: 0,
   condition: "normal",
   currentConditionAnimation: catMainAnimation,
   currentAction: "sitting",
+  catEmotion: null,
 };
 
 const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
@@ -56,6 +65,10 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
           clearInterval(timerId);
 
           onComplete();
+
+          setLastPoints("feed", 100);
+
+          set({ currentAction: "sitting" });
         }
 
         if (hungryPoints < 100) {
@@ -83,6 +96,10 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
           clearInterval(timerId);
 
           onComplete();
+
+          setLastPoints("pee", 100);
+
+          set({ currentAction: "sitting" });
         }
 
         if (peePoints < 100) {
@@ -93,9 +110,15 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
       }, 1000);
     },
     incrimentHappiness: () => {
+      set({ catEmotion: loveEmotion });
+
       const timerId = setInterval(() => {
         const happinessPoints = get().happinessPoints;
         const currentCondition = get().condition;
+
+        if (happinessPoints === 100) {
+          setLastPoints("happy", 100);
+        }
 
         if (happinessPoints === 100 || currentCondition !== "happy") {
           clearInterval(timerId);
@@ -104,6 +127,8 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
 
         if (happinessPoints < 100) {
           const newHappinessPoints = happinessPoints + 20;
+
+          setLastPoints("happy", newHappinessPoints);
 
           set({
             happinessPoints:
@@ -119,7 +144,12 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
       set({ condition: "good", currentConditionAnimation: catGoodAnimation });
     },
     setNormal: () => {
-      set({ condition: "normal", currentConditionAnimation: catMainAnimation });
+      set({
+        condition: "normal",
+        currentConditionAnimation: catMainAnimation,
+        currentAction: "sitting",
+        catEmotion: null,
+      });
     },
     setSad: () => {
       set({ condition: "sad", currentConditionAnimation: catSadAnimation });
@@ -145,6 +175,9 @@ const useCatStore = create<IUseCatStoreState & IUseCatStoreActions>()(
         condition: "normal",
         currentConditionAnimation: catMainAnimation,
       });
+    },
+    setValue: (fieldName, fieldValue) => {
+      set({ [fieldName]: fieldValue });
     },
     ...catStoreDefaultState,
   }))

@@ -1,0 +1,70 @@
+.wrapper {
+  position: relative;
+  width: min-content;
+  min-height: 105px;
+
+  .emotion {
+    position: absolute;
+    bottom: 35px;
+    right: 20px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 7px 5px;
+
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    z-index: 10;
+
+    @media (max-width: 426px) {
+      bottom: 50px;
+    }
+  }
+
+  .bigSphere {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    width: 25px;
+    height: 25px;
+
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 426px) {
+      bottom: 20%;
+      right: 50%;
+
+      transform: translateX(-50%);
+    }
+  }
+
+  .smallSphere {
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+
+    width: 15px;
+    height: 15px;
+
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 426px) {
+      bottom: 0%;
+      right: 50%;
+
+      transform: translateX(-50%);
+    }
+  }
+}

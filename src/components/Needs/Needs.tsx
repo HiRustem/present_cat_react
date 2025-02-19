@@ -4,7 +4,7 @@ import styles from "./Needs.module.scss";
 import NeedBar from "./ui/NeedBar/NeedBar";
 import clsx from "clsx";
 import { INeedBar } from "./model/types";
-import { RefObject, useEffect, useMemo, useRef, useState } from "react";
+import { RefObject, useMemo, useRef } from "react";
 import {
   toiletAppearAndHideTiming,
   toiletAppearKeyframes,
@@ -15,6 +15,8 @@ import {
   fishAppearKeyframes,
   fishHideKeyframes,
 } from "../MainScene/model/animations";
+import peeSrc from "@/assets/audio/cat_pee.mp3";
+import feedSrc from "@/assets/audio/cat_feed.mp3";
 
 interface INeeds {
   toiletRef: RefObject<HTMLDivElement>;
@@ -53,7 +55,14 @@ const Needs = ({ toiletRef, fishRef, className }: INeeds) => {
               );
 
               fishAppearAnimation.onfinish = () => {
+                feedRef.current?.play();
+
                 feed(() => {
+                  if (feedRef.current) {
+                    feedRef.current?.pause();
+                    feedRef.current.currentTime = 0;
+                  }
+
                   const fishAnimation = fishRef.current?.animate(
                     fishHideKeyframes,
                     fishAppearAndHideTiming
@@ -96,7 +105,14 @@ const Needs = ({ toiletRef, fishRef, className }: INeeds) => {
               );
 
               toiletAppearAnimation.onfinish = () => {
+                peeRef.current?.play();
+
                 pee(() => {
+                  if (peeRef.current) {
+                    peeRef.current?.pause();
+                    peeRef.current.currentTime = 0;
+                  }
+
                   const toiletAnimation = toiletRef.current?.animate(
                     toiletHideKeyframes,
                     toiletAppearAndHideTiming
@@ -132,6 +148,9 @@ const Needs = ({ toiletRef, fishRef, className }: INeeds) => {
     toiletRef,
   ]);
 
+  const feedRef = useRef<HTMLAudioElement>(null);
+  const peeRef = useRef<HTMLAudioElement>(null);
+
   return (
     <div ref={needsRef} className={clsx(styles.needs, className)}>
       {needs.map((item) => (
@@ -142,6 +161,9 @@ const Needs = ({ toiletRef, fishRef, className }: INeeds) => {
           handler={item.handler}
         />
       ))}
+
+      <audio ref={feedRef} src={feedSrc} loop={true}></audio>
+      <audio ref={peeRef} src={peeSrc} loop={true}></audio>
     </div>
   );
 };

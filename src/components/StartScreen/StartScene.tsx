@@ -4,10 +4,12 @@ import useAppStore from "@/pages/MainPage/model/store";
 
 import styles from "./StartScene.module.scss";
 import Scene from "../Scene/Scene";
+import { getCurrentData } from "@/pages/MainPage/lib/local-storage";
 
 const StartScene = () => {
-  const { startApp, showBox } = useAppStore(
+  const { showMainScene, startApp, showBox } = useAppStore(
     useShallow((state) => ({
+      showMainScene: state.showMainScene,
       startApp: state.startApp,
       showBox: state.showBox,
     }))
@@ -15,7 +17,14 @@ const StartScene = () => {
 
   const startHandler = () => {
     startApp();
-    showBox();
+
+    const { isFirst } = getCurrentData();
+
+    if (!isFirst) {
+      showBox();
+    } else {
+      showMainScene();
+    }
   };
 
   return (
