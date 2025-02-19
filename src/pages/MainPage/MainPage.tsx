@@ -107,7 +107,7 @@ const MainPage = () => {
     }
 
     if (backgroundMusicRef.current) {
-      backgroundMusicRef.current.volume = 0.1;
+      backgroundMusicRef.current.volume = 0.03;
       backgroundMusicRef.current?.play();
     }
   }, [isStarted]);
