@@ -14,6 +14,7 @@ import {
   setLastPoints,
 } from "@/pages/MainPage/lib/local-storage";
 import backgroundMusicSrc from "@/assets/audio/background_music.mp3";
+import { getCurrentTimePhrase } from "./lib/get-current-time-phrase";
 
 const MainPage = () => {
   const { isStarted, isShowBox, isShowMainScene } = useAppStore(
@@ -24,14 +25,26 @@ const MainPage = () => {
     }))
   );
 
-  const { currentAction, setValue } = useCatStore(
+  const { currentAction, setValue, setCurrentCondition } = useCatStore(
     useShallow((state) => ({
       currentAction: state.currentAction,
       setValue: state.setValue,
+      setCurrentCondition: state.setCurrentCondition,
     }))
   );
 
   const backgroundMusicRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (!isStarted) return;
+
+    const currentTimePhrase = getCurrentTimePhrase();
+
+    setValue(
+      "catEmotion",
+      <span className={styles.phrase}>{currentTimePhrase}</span>
+    );
+  }, [isStarted]);
 
   useEffect(() => {
     if (currentAction !== "sitting") return;
@@ -107,9 +120,11 @@ const MainPage = () => {
     }
 
     if (backgroundMusicRef.current) {
-      backgroundMusicRef.current.volume = 0.03;
+      backgroundMusicRef.current.volume = 0.02;
       backgroundMusicRef.current?.play();
     }
+
+    setCurrentCondition();
   }, [isStarted]);
 
   return (
